@@ -19,4 +19,5 @@ class Movie(db.Model):
     year = db.Column(db.Integer, nullable=False)
     poster_url = db.Column(db.String(100), nullable=False)
     # Link Movie to User
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey(User.id), nullable=False)
+    user = db.relationship(User, backref='movies', foreign_keys=[user_id])
