@@ -3,7 +3,7 @@ from models import db, User, Movie
 
 class DataManager():
     """Static methods for CRUD operations"""
-    def create_user(self, name):
+    def create_user(self, name:str):
         new_user = User(name=name)
         db.session.add(new_user)
         db.session.commit()
@@ -32,14 +32,14 @@ class DataManager():
             print(f"There is a problem with this movie: {error}")
 
 
-    def update_movie(self, movie_id, new_title):
+    def update_movie(self, movie_id: int, new_title: str):
         """Updates movie title"""
         selected_movie = Movie.query.get(movie_id)
         selected_movie.title = new_title
         db.session.commit()
 
 
-    def delete_movie(self, movie_id):
+    def delete_movie(self, movie_id: int):
         """Delete movie from database"""
         selected_movie = Movie.query.get(movie_id)
         selected_movie.delete()
