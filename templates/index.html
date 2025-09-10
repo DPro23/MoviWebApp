@@ -5,16 +5,28 @@ Home
 {% endblock %}
 
 {% block content %}
-<h1>Users</h1>
-<ul class="user-list">
-    {% for user in users %}
-    <li class="user-entry">
-        <a href="{{ url_for('index', user_id=user.id) }}" class="btn">{{ user.name }}</a>
-    </li>
-    {% endfor %}
-</ul>
-<form action="{{ url_for('create_user') }}" method="post">
-    <input type="text" name="username" placeholder="Username" required>
-    <input type="submit" value="Create User">
-</form>
+<div class="container py-4">
+    <h1 class="text-center p-2">Users</h1>
+        <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
+            <div class="btn-group">
+              <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                Select User
+              </button>
+              <ul class="dropdown-menu">
+                  {% for user in users %}
+                  <li><a class="dropdown-item" href="{{ url_for('list_movies', user_id=user.id)}}">{{user.name}}</a></li>
+                  {% endfor %}
+              </ul>
+            </div>
+            <form action="{{ url_for('create_user') }}" method="post">
+                <div class="input-group">
+                      <input type="text" class="form-control" name="username" id="username" placeholder="New Username" aria-label="New Username" aria-describedby="basic-addon2" required>
+                      <div class="input-group-append">
+                        <input class="btn btn-primary" type="submit" value="Create User">
+                      </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}

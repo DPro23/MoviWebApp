@@ -9,9 +9,15 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 </head>
 <body>
-<main class="container">
+<main class="container-full bg-dark text-white h-100">
+    <nav class="navbar navbar-dark bg-primary p-2">
+      <a class="navbar-brand" href="{{url_for('index')}}">Movi</a>
+    </nav>
     {% if request.args.get('error') %}
-    <p class="error">{{ request.args.get('error') }}</p>
+    <p class="text-bg-danger text-center p-3">{{ request.args.get('error') }}</p>
+    {% endif %}
+    {% if request.args.get('success') %}
+    <p class="text-bg-success text-center p-3">{{ request.args.get('success') }}</p>
     {% endif %}
     {% block content %}{% endblock %}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>

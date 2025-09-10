@@ -53,15 +53,16 @@ def create_user():
     username = request.form['username'].strip()
     if username:
         data_manager.create_user(username)
-        return redirect(url_for('index'))
+        return redirect(url_for('index', success=f'{username} registered!'))
     # Invalid username, render with an error message
-    return redirect(url_for('index', error='Invalid username'))
+    return redirect(url_for('index', error='Invalid username!'))
 
 
 @app.route('/users/<int:user_id>/movies', methods=['GET'])
 def list_movies(user_id):
     """Shows user's movies"""
-    pass
+    movies = data_manager.get_movies(user_id)
+    return render_template('movies.html', movies=movies)
 
 
 @app.route('/users/<int:user_id>/movies', methods=['POST'])

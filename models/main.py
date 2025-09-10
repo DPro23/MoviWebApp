@@ -9,6 +9,9 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(100), nullable=False)
 
+    def __repr__(self):
+        return f"User: (id:{self.id}, name:{self.name})"
+
 
 class Movie(db.Model):
     """Movies table model"""
@@ -21,3 +24,6 @@ class Movie(db.Model):
     # Link Movie to User
     user_id = db.Column(db.Integer, db.ForeignKey(User.id), nullable=False)
     user = db.relationship(User, backref='movies', foreign_keys=[user_id])
+
+    def __repr__(self):
+        return f"Movie: (id:{self.id}, title:{self.name}, user:{self.user.name})"

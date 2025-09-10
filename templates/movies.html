@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <h1 class="text-center p-2">Movies</h1>
+    <ul class="user-list">
+        {% for movie in movies %}
+        <li class="user-entry">
+            <a href="{{ url_for('index', movie_id=movie.id) }}" class="btn">Details</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
