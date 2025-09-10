@@ -1,5 +1,5 @@
 from dotenv import load_dotenv
-from flask import Flask
+from flask import Flask, render_template, redirect, request, url_for
 from data_manager import DataManager
 from models import db, Movie
 import os
@@ -37,20 +37,25 @@ def page_not_found(e):
 
 
 @app.route('/')
-def home():
+def index():
     """
     Home page. Show a list of
     all registered users and
     a form for adding new users
     """
     users = data_manager.get_users()
-    return str(users)
+    return render_template('index.html', users=users)
 
 
 @app.route('/users', methods=['POST'])
-def add_user():
+def create_user():
     """Adds new user to the database, then redirects back to home"""
-    pass
+    username = request.form['username'].strip()
+    if username:
+        data_manager.create_user(username)
+        return redirect(url_for('index'))
+    # Invalid username, render with an error message
+    return redirect(url_for('index', error='Invalid username'))
 
 
 @app.route('/users/<int:user_id>/movies', methods=['GET'])
