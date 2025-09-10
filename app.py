@@ -27,13 +27,48 @@ def page_not_found(e):
 
 @app.route('/')
 def home():
-    """Home page"""
-    return "Welcome to MoviWeb App!"
+    """
+    Home page. Show a list of
+    all registered users and
+    a form for adding new users
+    """
+    users = data_manager.get_users()
+    return str(users)
+
+
+@app.route('/users', methods=['POST'])
+def add_user():
+    """Adds new user to the database, then redirects back to home"""
+    pass
+
+
+@app.route('/users/<int:user_id>/movies', methods=['GET'])
+def list_movies(user_id):
+    """Shows user's movies"""
+    pass
+
+
+@app.route('/users/<int:user_id>/movies', methods=['POST'])
+def add_movie(user_id):
+    """Adds a new movie to a user’s list of movies"""
+    pass
+
+
+@app.route('/users/<int:user_id>/movies/<int:movie_id>/update', methods=['POST'])
+def update_movie(user_id, movie_id):
+    """Manually updates a movie name"""
+    pass
+
+
+@app.route('/users/<int:user_id>/movies/<int:movie_id>/delete', methods=['POST'])
+def delete_movie(user_id, movie_id):
+    """Deletes a movie from user's list"""
+    pass
 
 
 if __name__ == '__main__':
     # Run app_context only the first time
-    # with app.app_context():
+    #with app.app_context():
     #    db.create_all()
 
     app.run(host="0.0.0.0", port=5002, debug=True)
