@@ -5,23 +5,35 @@ Home
 {% endblock %}
 
 {% block content %}
-<div class="container py-4">
+<div class="container">
     <h1 class="text-center p-2">Movies</h1>
     <form action="{{ url_for('add_movie', user_id=user_id) }}" method="post">
         <div class="input-group">
-              <input type="text" class="form-control" name="name" id="name" placeholder="New Book" aria-label="New Book" aria-describedby="basic-addon2" required>
+              <input type="text" class="form-control" name="name" id="name" placeholder="New Movie" aria-label="New Movie" aria-describedby="basic-addon2" required>
               <div class="input-group-append">
-                <input class="btn btn-primary" type="submit" value="Add Book">
+                <input class="btn btn-primary" type="submit" value="Add Movie">
               </div>
         </div>
     </form>
-    <ul class="user-list">
-        {% for movie in movies %}
-        <li class="user-entry">
-            <h3 class="text-center">{{ movie.name }}</h3>
-            <a href="{{ url_for('index', movie_id=movie.id) }}" class="btn">Details</a>
-        </li>
-        {% endfor %}
-    </ul>
+    <div class="container my-3">
+        <div class="row">
+            {% for movie in movies %}
+              <div class="col-sm-3">
+                <div class="card">
+                <img class="card-img-top" src="{{ movie.poster_url }}" height="300" alt="Card image cap">
+                  <div class="card-body">
+                    <h5 class="card-title">{{ movie.name }}</h5>
+                    <p class="card-text">{{ movie.director }}</p>
+                    <small class="text-muted">{{movie.year}}</small>
+                      <div class="input-group-append mt-2">
+                          <a href="{{ url_for('index', movie_id=movie.id) }}" class="btn btn-primary">Show details</a>
+                        <input class="btn btn-danger" type="submit" value="Delete">
+                      </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+        </div>
+    </div>
 </div>
 {% endblock %}
