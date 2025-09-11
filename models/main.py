@@ -10,7 +10,7 @@ class User(db.Model):
     name = db.Column(db.String(100), nullable=False)
 
     def __repr__(self):
-        return f"User: (id:{self.id}, name:{self.name})"
+        return f"User: (id: {self.id}, name: {self.name})"
 
 
 class Movie(db.Model):
@@ -26,4 +26,5 @@ class Movie(db.Model):
     user = db.relationship(User, backref='movies', foreign_keys=[user_id])
 
     def __repr__(self):
-        return f"Movie: (id:{self.id}, title:{self.name}, user:{self.user.name})"
+        return (f"Movie: (id: {self.id}, title: {self.name},"
+                f" year: {self.year}, director: {self.director})")

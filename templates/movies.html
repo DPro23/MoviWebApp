@@ -7,9 +7,18 @@ Home
 {% block content %}
 <div class="container py-4">
     <h1 class="text-center p-2">Movies</h1>
+    <form action="{{ url_for('add_movie', user_id=user_id) }}" method="post">
+        <div class="input-group">
+              <input type="text" class="form-control" name="name" id="name" placeholder="New Book" aria-label="New Book" aria-describedby="basic-addon2" required>
+              <div class="input-group-append">
+                <input class="btn btn-primary" type="submit" value="Add Book">
+              </div>
+        </div>
+    </form>
     <ul class="user-list">
         {% for movie in movies %}
         <li class="user-entry">
+            <h3 class="text-center">{{ movie.name }}</h3>
             <a href="{{ url_for('index', movie_id=movie.id) }}" class="btn">Details</a>
         </li>
         {% endfor %}
