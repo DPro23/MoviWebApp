@@ -33,14 +33,13 @@ data_manager = DataManager()
 @app.errorhandler(404)
 def page_not_found(e):
     """Custom 404 error handler"""
-    return "<div><h1>404</h1><a href='/'>Back home</a></div>", 404
+    return render_template('404.html'), 404
 
 
 @app.route('/')
 def index():
     """
-    Home page. Show a list of
-    all registered users and
+    Home page. Show a list of all registered users and
     a form for adding new users
     """
     users = data_manager.get_users()
@@ -53,7 +52,7 @@ def create_user():
     username = request.form['username'].strip()
     if username:
         data_manager.create_user(username)
-        return redirect(url_for('index', success=f'{username} registered!'))
+        return redirect(url_for('index', success=f'{username} created!'))
     # Invalid username, render with an error message
     return redirect(url_for('index', error='Invalid username!'))
 
@@ -172,7 +171,19 @@ def add_movie(user_id):
 @app.route('/users/<int:user_id>/movies/<int:movie_id>/update', methods=['POST'])
 def update_movie(user_id, movie_id):
     """Manually updates a movie name"""
-    pass
+    try:
+        new_title = request.form['title'].strip()
+        if new_title == '':
+            error = 'Invalid title!'
+            return redirect(url_for('list_movies', user_id=user_id, error=error))
+
+        data_manager.update_movie(movie_id, new_title)
+        success = 'Movie updated successfully!'
+        return redirect(url_for('list_movies', user_id=user_id, success=success))
+
+    except AttributeError as attribute_error:
+        error = f"There is a problem updating this movie! {attribute_error}"
+        return redirect(url_for('list_movies', user_id=user_id, error=error))
 
 
 @app.route('/users/<int:user_id>/movies/<int:movie_id>/delete', methods=['POST'])
