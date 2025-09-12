@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-Home
+Movies
 {% endblock %}
 
 {% block content %}
@@ -20,15 +20,17 @@ Home
             {% for movie in movies %}
               <div class="col-sm-6 col-md-4 g-2">
                 <div class="card h-100">
-                    <img class="card-img-top" src="{{ movie.poster_url }}" height="300" alt="Card image cap">
+                    <img class="card-img-top" src="{{ movie.poster_url }}" height="300" alt="{{movie.name}}">
                       <div class="card-body">
-                        <h5 class="card-title">{{ movie.name }}</h5>
+                        <form action="{{ url_for('update_movie', user_id=user_id, movie_id=movie.id) }}" method="post">
+                          <input type="text" class="form-control" name="title" id="title" placeholder="{{movie.name}}" aria-label="{{movie.name}}" aria-describedby="basic-addon2" required>
+                          <input class="btn btn-warning w-100" type="submit" value="✍️ Edit Name">
+                      </form>
                         <p class="card-text">{{ movie.director }}</p>
                         <small class="text-muted">{{movie.year}}</small>
                               <div class="row g-3 justify-content-between">
-                                  <a href="{{ url_for('index', movie_id=movie.id) }}" class="btn btn-primary">Show details</a>
                                   <form action="{{ url_for('delete_movie', user_id=user_id, movie_id=movie.id) }}" method="post">
-                                    <input class="btn btn-danger" type="submit" value="Delete">
+                                    <input class="btn btn-danger w-100" type="submit" value="Delete">
                                   </form>
                               </div>
                       </div>

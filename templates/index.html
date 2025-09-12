@@ -6,13 +6,13 @@ Home
 
 {% block content %}
 <div class="container">
-    <h1 class="text-center p-2">MoviApp</h1>
-    <h3>Select or create a new user</h3>
+    <h1 class="text-center p-2">Welcome!</h1>
+    <h3 class="text-center p-4">Select or create a new user</h3>
         <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
            {% if users %}
             <div class="btn-group">
               <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                Select User
+                🍿 Select User
               </button>
               <ul class="dropdown-menu">
                   {% for user in users %}
@@ -25,7 +25,7 @@ Home
                 <div class="input-group">
                       <input type="text" class="form-control" name="username" id="username" placeholder="New Username" aria-label="New Username" aria-describedby="basic-addon2" required>
                       <div class="input-group-append">
-                        <input class="btn btn-primary" type="submit" value="Create User">
+                        <input class="btn btn-success" type="submit" value="Create User">
                       </div>
                 </div>
             </form>
