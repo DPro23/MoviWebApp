@@ -106,9 +106,9 @@ def add_movie(user_id):
         new_movie = {
             "name": input_name,
             "director": '',
-            "year": 0,  # int
-            "poster_url": '',  # string
-            "user_id": user_id  # int
+            "year": 0,
+            "poster_url": '',
+            "user_id": user_id
         }
 
         if 'Title' in api_result:
