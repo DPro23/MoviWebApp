@@ -150,7 +150,7 @@ def add_movie(user_id):
             poster_url=new_movie['poster_url'],  # string
             user_id=new_movie['user_id']  # int
         )
-        print(new_movie)
+
         # Add movie to the user's movies list
         data_manager.add_movie(new_movie)
         return redirect(url_for('list_movies', user_id=user_id, success=success))
@@ -178,7 +178,14 @@ def update_movie(user_id, movie_id):
 @app.route('/users/<int:user_id>/movies/<int:movie_id>/delete', methods=['POST'])
 def delete_movie(user_id, movie_id):
     """Deletes a movie from user's list"""
-    pass
+    try:
+        data_manager.delete_movie(movie_id)
+        success = 'Movie deleted!'
+        return redirect(url_for('list_movies', user_id=user_id, success=success))
+
+    except AttributeError as _attribute_error:
+        error = "There is a problem deleting this movie..id doesn\'t exist!"
+        return redirect(url_for('list_movies', user_id=user_id, error=error))
 
 
 if __name__ == '__main__':

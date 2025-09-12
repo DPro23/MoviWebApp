@@ -40,7 +40,7 @@ class DataManager():
 
 
     def delete_movie(self, movie_id: int):
-        """Delete movie from database"""
-        selected_movie = Movie.query.get(movie_id)
-        selected_movie.delete()
+        """Delete a movie from database"""
+        movie = Movie.query.get(movie_id)
+        db.session.delete(movie)
         db.session.commit()

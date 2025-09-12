@@ -18,21 +18,26 @@ Home
     <div class="container my-3">
         <div class="row">
             {% for movie in movies %}
-              <div class="col-sm-3">
-                <div class="card">
-                <img class="card-img-top" src="{{ movie.poster_url }}" height="300" alt="Card image cap">
-                  <div class="card-body">
-                    <h5 class="card-title">{{ movie.name }}</h5>
-                    <p class="card-text">{{ movie.director }}</p>
-                    <small class="text-muted">{{movie.year}}</small>
-                      <div class="input-group-append mt-2">
-                          <a href="{{ url_for('index', movie_id=movie.id) }}" class="btn btn-primary">Show details</a>
-                        <input class="btn btn-danger" type="submit" value="Delete">
+              <div class="col-sm-6 col-md-4 g-2">
+                <div class="card h-100">
+                    <img class="card-img-top" src="{{ movie.poster_url }}" height="300" alt="Card image cap">
+                      <div class="card-body">
+                        <h5 class="card-title">{{ movie.name }}</h5>
+                        <p class="card-text">{{ movie.director }}</p>
+                        <small class="text-muted">{{movie.year}}</small>
+                              <div class="row g-3 justify-content-between">
+                                  <a href="{{ url_for('index', movie_id=movie.id) }}" class="btn btn-primary">Show details</a>
+                                  <form action="{{ url_for('delete_movie', user_id=user_id, movie_id=movie.id) }}" method="post">
+                                    <input class="btn btn-danger" type="submit" value="Delete">
+                                  </form>
+                              </div>
                       </div>
-                  </div>
                 </div>
               </div>
             {% endfor %}
+            {% if not movies %}
+            <h3 class="text-center p-2 alert alert-info">Add a movie and it will be shown here!</h3>
+            {% endif %}
         </div>
     </div>
 </div>
