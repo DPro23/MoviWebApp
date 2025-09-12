@@ -51,7 +51,16 @@ def create_user():
     """Adds new user to the database, then redirects back to home"""
     username = request.form['username'].strip()
     if username:
+        users = data_manager.get_users()
+
+        # Checks duplicated
+        for user in users:
+            if username == user.name:
+                error = f'User {username} already exists!'
+                return redirect(url_for('index',  error=error))
+
         data_manager.create_user(username)
+
         return redirect(url_for('index', success=f'{username} created!'))
     # Invalid username, render with an error message
     return redirect(url_for('index', error='Invalid username!'))
@@ -103,17 +112,19 @@ def add_movie(user_id):
         }
 
         if 'Title' in api_result:
-            book_name = api_result['Title'].strip()
-            if book_name == '':
+            movie_name = api_result['Title'].strip()
+            if movie_name == '':
                 error = 'Invalid title!'
                 return redirect(url_for('list_movies', user_id=user_id, error=error))
 
-            new_movie['name'] = book_name
+            new_movie['name'] = movie_name
 
         # Stops if movie is already in the database
-        if new_movie['name'] in data_manager.get_movies(user_id):
-            error = f'Movie {new_movie["name"]} already exists!'
-            return redirect(url_for('list_movies', user_id=user_id, error=error))
+        movies = data_manager.get_movies(user_id)
+        for movie in movies:
+            if new_movie['name'] == movie.name:
+                error = f'Movie {new_movie["name"]} already exists!'
+                return redirect(url_for('list_movies', user_id=user_id, error=error))
 
         if 'Year' in api_result:
             year = api_result['Year'].strip()
@@ -164,7 +175,7 @@ def add_movie(user_id):
         return redirect(url_for('list_movies', user_id=user_id, error=error))
 
     except TypeError as type_error:
-        error = 'There is a problem with the type of response.'
+        error = f'There is a problem with the type of response. {type_error}'
         return redirect(url_for('list_movies', user_id=user_id, error=error))
 
 
