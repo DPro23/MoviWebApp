@@ -202,6 +202,7 @@ def delete_movie(user_id, movie_id):
 if __name__ == '__main__':
     # Run app_context only the first time
     #with app.app_context():
+    #    db.drop_all()
     #    db.create_all()
 
-    app.run(host="0.0.0.0", port=5002, debug=True)
+    app.run(host="0.0.0.0", port=5002, debug=False)
